@@ -9,9 +9,95 @@
      <nav class="main-menu">
           <a href="index.html">Home</a>
           <a href="algorithms.html">Algorithms</a>
+          <a href="compare.html">Compare</a>
           <a href="learn.html">Learn More</a>
           <a href="exam.html">Take Exam</a>
      </nav>
-     <h1>Exam</h1>
+     <h1>Disk Scheduling Exam</h1>
+     <p>This online exam is made to provide you with additional practice in fully understanding disk scheduling algorithms</p>
+     <h3>Select your preferences below</h3>
+     <form action="submit.php" method="post">
+          <table>
+               <tr>
+                    <th>Randomize</th>
+                    <td>
+                         <input type="checkbox" name="randomize" id="question-randomize" value="true">
+                         <label for="question-randomize">Randomize the types of question</label>
+                         <br> 
+                    </td>
+               </tr>
+               <tr>
+                    <th>Types of Questions</th>
+                    <td>
+                         <input type="checkbox" name="type" id="type-fcfs" value="">
+                         <label for="type-fcfs">FCFS (First Come First Serve)</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-sstf" value="">
+                         <label for="type-sstf">SSTF (Shortest Seek Time First)</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-scan" value="">
+                         <label for="type-scan">SCAN</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-cscan" value="">
+                         <label for="type-cscan">C-SCAN (Circular SCAN)</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-look" value="">
+                         <label for="type-look">LOOK</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-clook" value="">
+                         <label for="type-clook">C-LOOK (Circular LOOK)</label>
+                         <br>
+                         <input type="checkbox" name="type" id="type-choose-all" value="">
+                         <label for="type-choose-all">Choose All</label>
+                         <br>
+                    </td>
+               </tr>
+               <tr>
+                    <th>Number of Questions</th>
+                    <td>
+                         <input type="radio" name="num-of-questions" id="num-of-questions-1" value="1">
+                         <label for="num-of-questions-1">1</label>
+                         <br>
+                         <input type="radio" name="num-of-questions" id="num-of-questions-5" value="5">
+                         <label for="num-of-questions-5">5</label>
+                         <br>
+                         <input type="radio" name="num-of-questions" id="num-of-questions-10" value="10">
+                         <label for="num-of-questions-10">10</label>
+                         <br>
+                         <input type="radio" name="num-of-questions" id="num-of-questions-15" value="15">
+                         <label for="num-of-questions-15">15</label>
+                         <br>
+                         <input type="radio" name="num-of-questions" id="num-of-questions-20" value="20">
+                         <label for="num-of-questions-20">20</label>
+                         <br>        
+                    </td>
+               </tr>
+               <tr>
+                    <th>Time Limit</th>
+                    <td>
+                         <input type="radio" name="time-limit" id="limit-2" value="2">
+                         <label for="limit-2">2 minutes</label>
+                         <br>
+                         <input type="radio" name="time-limit" id="limit-8" value="8">
+                         <label for="limit-8">8 minutes</label>
+                         <br>
+                         <input type="radio" name="time-limit" id="limit-15" value="15">
+                         <label for="limit-15">15 minutes</label>
+                         <br>
+                         <input type="radio" name="time-limit" id="limit-23" value="23">
+                         <label for="limit-23">23 minutes</label>
+                         <br>
+                         <input type="radio" name="time-limit" id="limit-30" value="30">
+                         <label for="limit-30">30 minutes</label>
+                         <br>
+                         <input type="radio" name="time-limit" id="limit-none" value="true">
+                         <label for="limit-none">No time Limit</label>
+                         <br> 
+
+                    </td>
+               </tr>
+          </table>
+          <button type="submit">Submit</button>
+     </form>     
 </body>
 </html>
