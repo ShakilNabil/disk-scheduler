@@ -13,91 +13,90 @@
           <a href="learn.html">Learn More</a>
           <a href="exam.html">Take Exam</a>
      </nav>
-     <h1>Disk Scheduling Exam</h1>
-     <p>This online exam is made to provide you with additional practice in fully understanding disk scheduling algorithms</p>
-     <h3>Select your preferences below</h3>
-     <form action="submit.php" method="post">
-          <table>
-               <tr>
-                    <th>Randomize</th>
-                    <td>
-                         <input type="checkbox" name="randomize" id="question-randomize" value="true">
-                         <label for="question-randomize">Randomize the types of question</label>
+     <main>
+          <h1>Disk Scheduling Exam</h1>
+          <p>This online exam is made to provide you with additional practice in fully understanding disk scheduling algorithms</p>
+
+          <!-- Exam Setup Section -->
+          <div id="exam-setup">
+               <h3>Select your preferences below</h3>
+               <form id="exam-settings-form">
+                    <fieldset id="randomize-section" class="form-section" data-section="randomize">
+                         <legend>Randomize</legend>
+                         <p class="helper">Pick this if you’d like algorithms to be chosen randomly. Turn it off to select specific algorithms.</p>
+                         <input type="checkbox" name="randomize" id="question-randomize" value="true" checked>
+                         <label for="question-randomize">Randomize algorithms</label>
                          <br> 
-                    </td>
-               </tr>
-               <tr>
-                    <th>Types of Questions</th>
-                    <td>
-                         <input type="checkbox" name="type" id="type-fcfs" value="">
-                         <label for="type-fcfs">FCFS (First Come First Serve)</label>
+                    </fieldset>
+                    <fieldset id="algorithm-types-section" class="form-section" data-section="algorithm-types">
+                         <legend>Algorithms</legend>
+                         <p class="helper">Select at least one algorithm to include in your exam.</p>
+                         <input type="checkbox" name="algorithms" id="type-fcfs" value="fcfs" checked>
+                         <label for="type-fcfs">FCFS (First-Come, First-Served)</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-sstf" value="">
+                         <input type="checkbox" name="algorithms" id="type-sstf" value="sstf" checked>
                          <label for="type-sstf">SSTF (Shortest Seek Time First)</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-scan" value="">
+                         <input type="checkbox" name="algorithms" id="type-scan" value="scan" checked>
                          <label for="type-scan">SCAN</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-cscan" value="">
+                         <input type="checkbox" name="algorithms" id="type-cscan" value="cscan" checked>
                          <label for="type-cscan">C-SCAN (Circular SCAN)</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-look" value="">
+                         <input type="checkbox" name="algorithms" id="type-look" value="look" checked>
                          <label for="type-look">LOOK</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-clook" value="">
+                         <input type="checkbox" name="algorithms" id="type-clook" value="clook" checked>
                          <label for="type-clook">C-LOOK (Circular LOOK)</label>
                          <br>
-                         <input type="checkbox" name="type" id="type-choose-all" value="">
-                         <label for="type-choose-all">Choose All</label>
+                         <button type="button" class="toggle-btn" data-action="select">Select All</button>
+                         <button type="button" class="toggle-btn" data-action="clear">Clear All</button>
                          <br>
-                    </td>
-               </tr>
-               <tr>
-                    <th>Number of Questions</th>
-                    <td>
-                         <input type="radio" name="num-of-questions" id="num-of-questions-1" value="1">
-                         <label for="num-of-questions-1">1</label>
+                         <p id="type-warning" class="warning">⚠ Please select at least one algorithm.</p>
+                    </fieldset>
+                    <fieldset id="number-of-questions-section" class="form-section" data-section="number-of-questions">
+                         <legend>Number of Questions</legend>
+                         <p class="helper">Choose how many questions to include.</p>
+                         <input type="radio" name="number-of-questions" id="number-of-questions-5" value="5">
+                         <label for="number-of-questions-5">5</label>
                          <br>
-                         <input type="radio" name="num-of-questions" id="num-of-questions-5" value="5">
-                         <label for="num-of-questions-5">5</label>
+                         <input type="radio" name="number-of-questions" id="number-of-questions-10" value="10" checked>
+                         <label for="number-of-questions-10">10</label>
                          <br>
-                         <input type="radio" name="num-of-questions" id="num-of-questions-10" value="10">
-                         <label for="num-of-questions-10">10</label>
+                         <input type="radio" name="number-of-questions" id="number-of-questions-15" value="15">
+                         <label for="number-of-questions-15">15</label>
                          <br>
-                         <input type="radio" name="num-of-questions" id="num-of-questions-15" value="15">
-                         <label for="num-of-questions-15">15</label>
-                         <br>
-                         <input type="radio" name="num-of-questions" id="num-of-questions-20" value="20">
-                         <label for="num-of-questions-20">20</label>
+                         <input type="radio" name="number-of-questions" id="number-of-questions-20" value="20">
+                         <label for="number-of-questions-20">20</label>
                          <br>        
-                    </td>
-               </tr>
-               <tr>
-                    <th>Time Limit</th>
-                    <td>
-                         <input type="radio" name="time-limit" id="limit-2" value="2">
-                         <label for="limit-2">2 minutes</label>
+                    </fieldset>
+                    <fieldset id="time-limit-section" class="form-section" data-section="time-limit">
+                         <legend>Time Limit</legend>
+                         <p class="helper">Choose how long you'll have.</p>
+                         <input type="radio" name="time-limit" id="limit-none" value="none" checked>
+                         <label for="limit-none">No time limit</label>
                          <br>
-                         <input type="radio" name="time-limit" id="limit-8" value="8">
-                         <label for="limit-8">8 minutes</label>
+                         <input type="radio" name="time-limit" id="limit-10" value="10">
+                         <label for="limit-10">10 minutes</label>
                          <br>
                          <input type="radio" name="time-limit" id="limit-15" value="15">
                          <label for="limit-15">15 minutes</label>
                          <br>
-                         <input type="radio" name="time-limit" id="limit-23" value="23">
-                         <label for="limit-23">23 minutes</label>
+                         <input type="radio" name="time-limit" id="limit-20" value="20">
+                         <label for="limit-20">20 minutes</label>
                          <br>
                          <input type="radio" name="time-limit" id="limit-30" value="30">
                          <label for="limit-30">30 minutes</label>
-                         <br>
-                         <input type="radio" name="time-limit" id="limit-none" value="true">
-                         <label for="limit-none">No time Limit</label>
                          <br> 
-
-                    </td>
-               </tr>
-          </table>
-          <button type="submit">Submit</button>
-     </form>     
+                    </fieldset>
+                    <button type="submit">Start Exam</button>
+               </form>    
+          </div>
+          
+          <!-- Exam Container -->
+           <div id="exam-container">
+               
+           </div>
+     </main>     
 </body>
 </html>
