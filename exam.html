@@ -18,7 +18,7 @@
           <p>This online exam is made to provide you with additional practice in fully understanding disk scheduling algorithms</p>
 
           <!-- Exam Setup Section -->
-          <div id="exam-setup">
+          <div id="exam-setup" style="display: none;">
                <h3>Select your preferences below</h3>
                <form id="exam-settings-form">
                     <fieldset id="randomize-section" class="form-section" data-section="randomize">
@@ -94,9 +94,18 @@
           </div>
           
           <!-- Exam Container -->
-           <div id="exam-container">
-                   
+           <div id="exam-layout" style="display: flex;">
+               <aside>
+                    <p>Answered</p>
+                    <p>Flagged</p>
+                    <p>Current</p>
+                    <p>Not Answered</p>
+               </aside>
+               <div id="exam-container">
+               <p>Practice Test - Question 5 (5 of 10)</p>       
+               </div>
            </div>
+
      </main>     
 </body>
 </html>
