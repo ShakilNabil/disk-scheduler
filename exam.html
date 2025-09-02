@@ -96,13 +96,53 @@
           <!-- Exam Container -->
            <div id="exam-layout" style="display: flex;">
                <aside>
-                    <p>Answered</p>
-                    <p>Flagged</p>
-                    <p>Current</p>
-                    <p>Not Answered</p>
+                    <p id="side-display-answered">Answered</p>
+                    <p id="side-display-flagged">Flagged</p>
+                    <p id="side-display-current">Current</p>
+                    <p id="side-display-not-answered">Not Answered</p>
+
+                    <h3>Questions:</h3>
+                    <div data-section="side-display-questions" id="side-display-questions-section">
+                         <button id="question1-side-display">1</button>
+                         <button id="question2-side-display">2</button>
+                         <button id="question3-side-display">3</button>
+                         <button id="question4-side-display">4</button>
+                         <br>
+                         <button id="question5-side-display">5</button>
+                         <button id="question6-side-display">6</button>
+                         <button id="question7-side-display">7</button>
+                         <button id="question8-side-display">8</button>
+                         <br>
+                         <button id="question9-side-display">9</button>
+                         <button id="question10-side-display">10</button>
+                    </div>
+
+                    <p>Questions Answered: <span id="answered-count">3</span> / <span class="total-question-count">10</span></p>
+                    <p>Flagged: <span id="flagged-count">1</span> / <span class="total-question-count">10</span></p>
                </aside>
                <div id="exam-container">
-               <p>Practice Test - Question 5 (5 of 10)</p>       
+               <div id="status-bar">
+                    <p>In Progress <button id="pause-btn" aria-label="Pause Test">❚❚</button></p>
+               </div>
+               <div class="time-bar-container" style="background-color: grey; width: 300px; height: 10px;">
+                    <div class="time-bar-fill" style="background-color: green; width: 80%; height: 100%;"></div> 
+               </div>
+               <p>Time left: <span id="time-left">15:00 </span></p>
+               <h2>Question <span class="current-question-number">5</span> (<span class="current-question-number">5</span> of <span class="total-question-count">10</span>) <button id="flagged-btn" aria-label="Flag Question">⚐</button></h2>
+     
+               <p class="question-1">In FCFS disk scheduling, requests are processed in what order?</p>
+               <ul class="question-1-answer-choices">
+                    <li><label><input type="radio" name="q1"> Closest track first</label></li>
+                    <li><label><input type="radio" name="q1"> First request to arrive</label></li>
+                    <li><label><input type="radio" name="q1"> Lowest cylinder number</label></li>
+                    <li><label><input type="radio" name="q1"> Random order</label></li>
+               </ul>
+               <div class="nav-btns">
+                    <button class="previous-btn">Previous</button>
+                    <button class="next-btn">Next</button>
+                    <button class="finish-btn">Finish</button>
+               </div>
+               
                </div>
            </div>
 
