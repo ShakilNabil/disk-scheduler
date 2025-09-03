@@ -94,7 +94,7 @@
           </div>
           
           <!-- Exam Container -->
-           <form id="test-form">
+           <form id="test-form" style="display: none;">
                <div id="exam-layout" style="display: flex;">
                     <aside>
                          <p id="side-display-answered">Answered</p>
@@ -117,7 +117,7 @@
                          </div>
 
                          <p>Questions Answered: <span id="answered-count">3</span> / <span class="total-question-count"></span></p>
-                         <p>Flagged: <span id="flagged-count">1</span> / <span class="total-question-count"></span></p>
+                         <p>Flagged: <span class="flagged-count">1</span> / <span class="total-question-count"></span></p>
                     </aside>
                     <div id="exam-container">
                     <div id="status-bar">
@@ -146,12 +146,51 @@
                     <div class="nav-btns">
                          <button class="previous-btn" type="button" disabled>Previous</button>
                          <button class="next-btn" type="button">Next</button>
-                         <button class="finish-btn" type="submit">Finish</button>
+                         <button class="finish-btn" type="button">Finish</button>
                     </div>
                     
+                    <div id="confirmation-page">
+                         <h3>Confirm Submission</h3>
+                         <p>Are you sure you want to submit?</p>
+                         <button class="cancel-btn" type="button">Cancel</button>
+                         <button class="submit-btn" type="submit">Submit</button>
+                    </div>
                     </div>
                </div>
            </form>
+
+           <div id="results-container">
+               <h1>Results</h1>
+               <div id="score-section">
+                    <div id="score-written-info">
+                         <p>Points <span class="total-correct-points">8</span> / <span class="total-question-count"></span></p>
+                         <p>Time Taken <span id="minutes-taken">xx</span> min <span id="seconds-taken">xx</span> sec</p>
+                    </div>
+                    <div id="score-animated-info">
+
+                    </div>
+               </div>
+
+
+               <div id="categories-section">
+                    <div id="theory-section">
+                         <p>Theory</p>
+                         <div id="theory-animated-info"></div>
+                         <p>Out of <span id="total-theory-questions">6</span></p>
+                    </div>
+                    <div id="calculation-section">
+                         <p>Calculations</p>
+                         <div id="calculation-animated-info"></div>
+                         <p>Out of <span id="total-calculation-questions">4</span></p>     
+                    </div>     
+               </div>
+               
+               <div id="answer-legend">
+                    <p>Answers</p>
+                    <p>Correct <span class="total-correct-points">8</span> Incorrect <span class="total-incorrect-points">2</span> Flagged <span class="flagged-count"></span></p>
+               </div>
+
+           </div>
            
 
      </main>     
