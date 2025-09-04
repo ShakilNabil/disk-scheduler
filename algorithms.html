@@ -13,6 +13,37 @@
           <a href="learn.html">Learn More</a>
           <a href="exam.html">Take Exam</a>
      </nav>
-     <h1>Algorithms</h1>
+     <main>
+          <div id="simulate-container">
+               <section id="algorithm-select-content">
+                    <h2>Select which algorithm you would like to run</h2>
+                    <button class="algorithm-options current-algorithm" type="button" data-algorithm="FCFS">FCFS</button>
+                    <button class="algorithm-options" type="button" data-algorithm="SSTF">SSTF</button>
+                    <button class="algorithm-options" type="button" data-algorithm="SCAN">SCAN</button>
+                    <button class="algorithm-options" type="button" data-algorithm="C-SCAN">C-SCAN</button>
+                    <button class="algorithm-options" type="button" data-algorithm="LOOK">LOOK</button>
+                    <button class="algorithm-options" type="button" data-algorithm="C-LOOK">C-LOOK</button>
+               </section>
+
+               <section id="current-algorithm-display">
+                    <h3>FCFS: First-Come-First-Served</h3>
+                    <button id="more-info-btn">Learn About FCFS</button>
+               </section>
+
+               <section id="value-input-section">
+                    <form id="simulation-form">
+                         <label for="request-sequence">Enter request sequence</label>
+                         <input id="request-sequence" type="text" placeholder="Eg: 5, 10, 15, 20  (Input value range: [0 - 499])">
+                         <br>
+                         <label for="head-position">Enter initial head position</label>
+                         <input id="head-position" type="text" placeholder="Eg: 3  (Input value range: [0 - 499])">
+                         <br>
+                         <button id="simulate-btn" type="submit">Simulate</button>
+                    </form>
+               </section>
+          </div>
+
+          <div id="simulate-result-container">Simulation results will appear here</div>
+     </main>
 </body>
 </html>
