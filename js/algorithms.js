@@ -20,6 +20,49 @@ function calculateFCFS(requestArr, headPos) {
      return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
 }
 
+function calculateSSTF(requestArr, headPos) {
+     let totalSeekTime = 0;
+     let currentHeadPos = headPos;
+     let requestProcessed = 0;
+     let stepBreakdown = [];
+     requestArr.push(currentHeadPos);
+     requestArr.sort((a, b) => a - b);
+     let currentHeadIndex = requestArr.indexOf(headPos);
+     while(requestProcessed < requestArr.length - 1){
+          let leftIndex = null;
+          let rightIndex = null;
+          let leftDistance = 0;
+          let rightDistance = 0;
+          if(currentHeadIndex === 0){
+               leftDistance = Infinity;
+               rightIndex = currentHeadIndex + 1;     
+          }
+          else if(currentHeadIndex === requestArr.length - 1) {
+               rightDistance = Infinity;
+               leftIndex = currentHeadIndex - 1;
+          }
+          else{
+               leftIndex = currentHeadIndex - 1;
+               rightIndex = currentHeadIndex + 1;
+          }
+          if(leftIndex === null || rightIndex === null) {
+               if(leftIndex === null && rightIndex < requestArr.length) {
+                    rightDistance = Math.abs(requestArr[currentHeadIndex] - requestArr[rightIndex]);     
+               } 
+               else if(rightIndex === null && leftIndex >=  0) {
+                    leftDistance = Math.abs(requestArr[currentHeadIndex] - requestArr[leftIndex]);
+               }
+               if(rightDistance <= leftDistance) {
+                    currentHeadIndex = rightIndex;
+                    
+               }
+
+          }
+
+               
+     }     
+}
+
 function checkRequest(requestArr) {
      let message = "";
      for(let i = 0; i < requestArr.length; i++) {
