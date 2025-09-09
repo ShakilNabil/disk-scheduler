@@ -1,7 +1,11 @@
-let inputArr = [2, 3, 4, 6, 3, 6, 7].map(Number);
-let headPos = 1;
+// let inputArr = [2, 3, 4, 6, 3, 6, 7].map(Number);
+// let headPos = 1;
 
-console.log(calculateFCFS(inputArr, headPos));
+let inputArr = [150, 180, 130, 160].map(Number);
+let headPos = 100;
+
+//console.log(calculateFCFS(inputArr, headPos));
+console.log(calculateSSTF(inputArr, headPos));
 
 function calculateFCFS(requestArr, headPos) {
      let totalSeekTime = 0;
@@ -25,42 +29,38 @@ function calculateSSTF(requestArr, headPos) {
      let currentHeadPos = headPos;
      let requestProcessed = 0;
      let stepBreakdown = [];
-     requestArr.push(currentHeadPos);
-     requestArr.sort((a, b) => a - b);
-     let currentHeadIndex = requestArr.indexOf(headPos);
-     while(requestProcessed < requestArr.length - 1){
-          let leftIndex = null;
-          let rightIndex = null;
-          let leftDistance = 0;
-          let rightDistance = 0;
-          if(currentHeadIndex === 0){
-               leftDistance = Infinity;
-               rightIndex = currentHeadIndex + 1;     
+     let requestArrCopy = [...requestArr];
+     requestArrCopy.push(currentHeadPos);
+     requestArrCopy.sort((a, b) => a - b);
+     let currentHeadIndex = requestArrCopy.indexOf(headPos);
+     let leftIndex = (currentHeadIndex - 1 >= 0) ? currentHeadIndex - 1 : null;
+     let rightIndex = (currentHeadIndex + 1 < requestArrCopy.length) ? currentHeadIndex + 1 : null;
+     while(leftIndex !== null || rightIndex !== null){
+          let leftDistance = (leftIndex !== null) ? Math.abs(currentHeadPos - requestArrCopy[leftIndex]) : Infinity;
+          let rightDistance = (rightIndex !== null) ? Math.abs(currentHeadPos - requestArrCopy[rightIndex]) : Infinity;
+          if(rightDistance <= leftDistance) {
+               currentHeadIndex = rightIndex;
+               rightIndex++;
+               if(rightIndex >= requestArrCopy.length) rightIndex = null;
           }
-          else if(currentHeadIndex === requestArr.length - 1) {
-               rightDistance = Infinity;
-               leftIndex = currentHeadIndex - 1;
-          }
-          else{
-               leftIndex = currentHeadIndex - 1;
-               rightIndex = currentHeadIndex + 1;
-          }
-          if(leftIndex === null || rightIndex === null) {
-               if(leftIndex === null && rightIndex < requestArr.length) {
-                    rightDistance = Math.abs(requestArr[currentHeadIndex] - requestArr[rightIndex]);     
-               } 
-               else if(rightIndex === null && leftIndex >=  0) {
-                    leftDistance = Math.abs(requestArr[currentHeadIndex] - requestArr[leftIndex]);
-               }
-               if(rightDistance <= leftDistance) {
-                    currentHeadIndex = rightIndex;
-                    
-               }
-
+          else {
+               currentHeadIndex = leftIndex;
+               leftIndex--;
+               if(leftIndex < 0) leftIndex = null;
           }
 
-               
-     }     
+          let calculateSeekTime = Math.min(leftDistance, rightDistance);
+          totalSeekTime += calculateSeekTime;
+          stepBreakdown.push({step: requestProcessed + 1, from: currentHeadPos, to: requestArrCopy[currentHeadIndex], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+          currentHeadPos = requestArrCopy[currentHeadIndex];
+          requestProcessed++;
+
+     }
+
+     let avgSeekTime = requestArr.length === 0 ? 0 : Math.round(totalSeekTime / requestProcessed);
+     
+     return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
+     
 }
 
 function checkRequest(requestArr) {
