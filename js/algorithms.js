@@ -1,22 +1,23 @@
-// let inputArr = [2, 3, 4, 6, 3, 6, 7].map(Number);
-// let headPos = 1;
+let inputArr = [30, 30, 60].map(Number);
+let headPos = 30;
 
-let inputArr = [150, 180, 130, 160].map(Number);
-let headPos = 100;
 
-//console.log(calculateFCFS(inputArr, headPos));
-console.log(calculateSSTF(inputArr, headPos));
+// console.log(calculateFCFS(inputArr, headPos));
+// console.log(calculateSSTF(inputArr, headPos));
+console.log(calculateSCAN(inputArr, headPos, "Right"));
+
 
 function calculateFCFS(requestArr, headPos) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
-     let requestProcessed = requestArr.length;
+     let requestProcessed = 0;
      let stepBreakdown = [];
      for(let i = 0; i < requestArr.length; i++) {
           let calculateSeekTime = Math.abs(currentHeadPos - requestArr[i]);
           totalSeekTime += calculateSeekTime;
-          stepBreakdown.push({step: i+1, from: currentHeadPos, to: requestArr[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
-          currentHeadPos = requestArr[i];     
+          stepBreakdown.push({step: requestProcessed + 1, from: currentHeadPos, to: requestArr[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+          currentHeadPos = requestArr[i]; 
+          requestProcessed++;    
      }
 
      let avgSeekTime = requestArr.length === 0 ? 0 : Math.round(totalSeekTime / requestProcessed);
@@ -61,6 +62,82 @@ function calculateSSTF(requestArr, headPos) {
      
      return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
      
+}
+
+function calculateSCAN(requestArr, headPos, headDirection) {
+     let totalSeekTime = 0;
+     let currentHeadPos = headPos;
+     let requestProcessed = 0;
+     let step = 0;
+     let stepBreakdown = [];
+     if(requestArr.length === 0) {
+          let avgSeekTime = 0;
+          return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
+     }
+     let requestArrCopy = [...requestArr];
+     requestArrCopy.push(headPos);
+     requestArrCopy.sort((a, b) => a - b);
+     let headPosIndex = requestArrCopy.indexOf(headPos);
+     let addedEdge = false
+     if(headPosIndex !== 0 && requestArrCopy[requestArrCopy.length - 1] !== 499 && headDirection === "Right") {
+          requestArrCopy.push(499);
+          addedEdge = true;
+     }
+     else if(headPosIndex !== requestArrCopy.length - 1 && requestArrCopy[0] !== 0 && headDirection === "Left") {
+          requestArrCopy.unshift(0);
+          headPosIndex++;
+          addedEdge = true;
+     }
+     if(headDirection === "Right") {
+          for(let i = headPosIndex + 1; i < requestArrCopy.length; i++){
+               let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
+               totalSeekTime += calculateSeekTime;
+               step++;
+               stepBreakdown.push({step: step, from: currentHeadPos, to: requestArrCopy[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+               currentHeadPos = requestArrCopy[i];
+               if(addedEdge && i === requestArrCopy.length - 1) continue;     
+               requestProcessed++;     
+          }
+
+          for(let i = headPosIndex - 1; i >= 0; i--){
+               let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
+               totalSeekTime += calculateSeekTime;
+               step++;
+               stepBreakdown.push({step: step, from: currentHeadPos, to: requestArrCopy[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+               currentHeadPos = requestArrCopy[i];
+               requestProcessed++;     
+          } 
+
+     }
+     else if(headDirection === "Left") {
+          for(let i = headPosIndex + 1; i < requestArrCopy.length; i++){
+               if(requestArrCopy[i] !== headPos){
+                    headPosIndex = --i;
+                    break;
+               } 
+          }
+          for(let i = headPosIndex - 1; i >= 0; i--){
+               let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
+               totalSeekTime += calculateSeekTime;
+               step++
+               stepBreakdown.push({step: step, from: currentHeadPos, to: requestArrCopy[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+               currentHeadPos = requestArrCopy[i];
+               if(addedEdge && i === 0) continue;
+               requestProcessed++;     
+          }
+          
+          for(let i = headPosIndex + 1; i < requestArrCopy.length; i++){
+               let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
+               totalSeekTime += calculateSeekTime;
+               step++;
+               stepBreakdown.push({step: step, from: currentHeadPos, to: requestArrCopy[i], seekTime: calculateSeekTime, runningTotal: totalSeekTime});
+               currentHeadPos = requestArrCopy[i];
+               requestProcessed++;     
+          }
+     }
+
+     let avgSeekTime = requestArr.length === 0 ? 0 : Math.round(totalSeekTime / requestProcessed);
+     return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
 }
 
 function checkRequest(requestArr) {
