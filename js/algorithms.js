@@ -1,10 +1,4 @@
-let inputArr = [5, 15, 25, 480, 490, 495].map(Number);
-let headPos = 15;
 
-
-// console.log(calculateFCFS(inputArr, headPos));
-// console.log(calculateSSTF(inputArr, headPos));
-console.log(calculateCLOOK(inputArr, headPos, "Right"));
 
 
 function calculateFCFS(requestArr, headPos) {
