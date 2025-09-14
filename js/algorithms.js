@@ -331,6 +331,7 @@ function calculateCLOOK(requestArr, headPos, headDirection) {
                     if(i + 1 === headPosIndex) {
                          stepBreakdown.push({step: step + 1, from: currentHeadPos, to: requestArrCopy[i], seekTime: 0, runningTotal: totalSeekTime});     
                     }
+                    requestProcessed++;
                     continue;
                }
                let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
@@ -364,6 +365,7 @@ function calculateCLOOK(requestArr, headPos, headDirection) {
                     if(i - 1 === headPosIndex) {
                          stepBreakdown.push({step: step + 1, from: currentHeadPos, to: requestArrCopy[i], seekTime: 0, runningTotal: totalSeekTime});     
                     }
+                    requestProcessed++;
                     continue;
                }
                let calculateSeekTime = Math.abs(currentHeadPos - requestArrCopy[i])
@@ -381,6 +383,7 @@ function calculateCLOOK(requestArr, headPos, headDirection) {
 
 function checkRequest(requestArr) {
      let message = "";
+     if(requestArr.length === 0) return {ok: false, message: "Request can not be empty"};
      for(let i = 0; i < requestArr.length; i++) {
           if(Number.isNaN(requestArr[i]) || !Number.isInteger(requestArr[i])) {
                message = "Invalid input \nonly integers are allowed";

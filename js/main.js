@@ -4,6 +4,11 @@ const currentAlgorithmDisplay= document.getElementById("current-algorithm-displa
 
 const moreInfoBtn = document.getElementById("more-info-btn");
 
+let currentAlgorithm = "FCFS"; 
+
+const simulationForm = document.getElementById("simulation-form"); 
+
+const directionWrapper = document.getElementById("direction-wrapper");
 
 for (const element of algorithmOption) {
      element.addEventListener("click", () => {
@@ -11,6 +16,11 @@ for (const element of algorithmOption) {
                e.classList.remove("current-algorithm");     
           }
           element.classList.add("current-algorithm");
+          currentAlgorithm = element.dataset.algorithm;
+          currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?
+          directionWrapper.classList.add("hidden") :   directionWrapper.classList.remove("hidden");
+          
+     
           updateAlgorithmDisplay(element.dataset.algorithm);    
      })   
 }
@@ -31,3 +41,30 @@ function updateAlgorithmDisplay(element){
      
      moreInfoBtn.innerHTML = `Learn About ${element}`;
 }
+
+simulationForm.addEventListener("submit", (event) => {
+     event.preventDefault();
+     const requestSequence = event.target["request-sequence"].value;
+     let headPosition = event.target["head-position"].value;
+     headPosition = headPosition === "" ? null : Number(headPosition);
+     const requestArr = requestSequence.split(/[\s,]+/).filter(x => x !== "").map(x => Number(x));
+     const direction = event.target["request-direction"].value;
+     let requestMessage = checkRequest(requestArr);
+     let headPosMessage = checkHeadPos(headPosition);
+     requestMessage.ok === true ? console.log(requestArr) : window.alert(requestMessage.message);
+     headPosMessage.ok === true ? console.log(headPosition) : window.alert(headPosMessage.message);
+     console.log(currentAlgorithm);
+     console.log(direction);
+
+     const algorithms = {
+          "FCFS": calculateFCFS,
+          "SSTF": calculateSSTF,
+          "SCAN": calculateSCAN,
+          "C-SCAN": calculateCSCAN,
+          "LOOK": calculateLOOK,
+          "C-LOOK": calculateCLOOK,
+     };
+     currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?    
+          console.log(algorithms[currentAlgorithm](requestArr, headPosition)) :          console.log(algorithms[currentAlgorithm](requestArr, headPosition, direction));
+     
+})
