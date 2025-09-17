@@ -1,7 +1,7 @@
 
 
 
-function calculateFCFS(requestArr, headPos) {
+export function calculateFCFS(requestArr, headPos) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -19,7 +19,7 @@ function calculateFCFS(requestArr, headPos) {
      return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};
 }
 
-function calculateSSTF(requestArr, headPos) {
+export function calculateSSTF(requestArr, headPos) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -58,7 +58,7 @@ function calculateSSTF(requestArr, headPos) {
      
 }
 
-function calculateSCAN(requestArr, headPos, headDirection) {
+export function calculateSCAN(requestArr, headPos, headDirection) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -135,7 +135,7 @@ function calculateSCAN(requestArr, headPos, headDirection) {
 }
 
 
-function calculateCSCAN(requestArr, headPos, headDirection) {
+export function calculateCSCAN(requestArr, headPos, headDirection) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -236,7 +236,7 @@ function calculateCSCAN(requestArr, headPos, headDirection) {
 }
 
 
-function calculateLOOK(requestArr, headPos, headDirection) {
+export function calculateLOOK(requestArr, headPos, headDirection) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -301,7 +301,7 @@ function calculateLOOK(requestArr, headPos, headDirection) {
 }
 
 
-function calculateCLOOK(requestArr, headPos, headDirection) {
+export function calculateCLOOK(requestArr, headPos, headDirection) {
      let totalSeekTime = 0;
      let currentHeadPos = headPos;
      let requestProcessed = 0;
@@ -381,7 +381,7 @@ function calculateCLOOK(requestArr, headPos, headDirection) {
      return {requestArr, stepBreakdown, totalSeekTime, avgSeekTime, requestProcessed, finalHead: currentHeadPos};     
 }
 
-function checkRequest(requestArr) {
+export function checkRequest(requestArr) {
      let message = "";
      if(requestArr.length === 0) return {ok: false, message: "Request can not be empty"};
      for(let i = 0; i < requestArr.length; i++) {
@@ -397,7 +397,7 @@ function checkRequest(requestArr) {
      return message === "" ? {ok: true} : {ok: false, message};  
 }
 
-function checkHeadPos(headPos) {
+export function checkHeadPos(headPos) {
      let message = ""
      if(headPos == null) message = "Please select starting head";
  

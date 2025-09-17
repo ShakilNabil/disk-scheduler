@@ -1,3 +1,14 @@
+import { getFormValues } from "./formUtils.js";
+import { 
+     calculateFCFS,
+     calculateSSTF,
+     calculateSCAN,
+     calculateCSCAN,
+     calculateLOOK,
+     calculateCLOOK,
+     checkRequest,
+     checkHeadPos
+} from "./algorithms.js";
 const algorithmOption = document.getElementsByClassName("algorithm-options");
 
 const currentAlgorithmDisplay= document.getElementById("current-algorithm-display");
@@ -44,16 +55,15 @@ function updateAlgorithmDisplay(element){
 
 simulationForm.addEventListener("submit", (event) => {
      event.preventDefault();
-     const requestSequence = event.target["request-sequence"].value;
-     let headPosition = event.target["head-position"].value;
-     headPosition = headPosition === "" ? null : Number(headPosition);
-     const requestArr = requestSequence.split(/[\s,]+/).filter(x => x !== "").map(x => Number(x));
-     const direction = event.target["request-direction"].value;
+     const {requestArr, headPosition, direction} = getFormValues(event.target)
      let requestMessage = checkRequest(requestArr);
      let headPosMessage = checkHeadPos(headPosition);
-     requestMessage.ok === true ? console.log(requestArr) : window.alert(requestMessage.message);
-     headPosMessage.ok === true ? console.log(headPosition) : window.alert(headPosMessage.message);
-
+     if (!requestMessage.ok) {
+          return window.alert(requestMessage.message);
+     }
+     if (!headPosMessage.ok) {
+          return window.alert(headPosMessage.message);
+     }
      const algorithms = {
           "FCFS": calculateFCFS,
           "SSTF": calculateSSTF,
@@ -65,5 +75,5 @@ simulationForm.addEventListener("submit", (event) => {
      currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?    
           console.log(algorithms[currentAlgorithm](requestArr, headPosition)) :          console.log(algorithms[currentAlgorithm](requestArr, headPosition, direction));
      
-})
+});
 

@@ -14,7 +14,27 @@
           <a href="exam.html">Take Exam</a>
      </nav>
      <main>
-          <h1>Compare</h1>     
+          <area>Compare</h1>
+          <section id="value-input-section">
+               <form id="simulation-form">
+                    <label for="request-sequence">Enter request sequence: </label>
+                    <input id="request-sequence" type="text" placeholder="Eg: 5, 10, 15, 20  (Input value range: [0 - 499])">
+                    <br>
+                    <label for="head-position">Enter initial head position: </label>
+                    <input id="head-position" type="text" placeholder="Eg: 3  (Input value range: [0 - 499])">
+                    <br>
+                    <div id="direction-wrapper" class="hidden">
+                         <label for="request-direction">Direction: </label>
+                         <select id="request-direction">
+                         <option value="Right">Right</option>
+                         <option value="Left">Left</option>
+                         </select>
+                         <br>
+                    </div>
+                    <button id="simulate-btn" type="submit">Compare</button>
+               </form>
+          </section>     
      </main>
 </body>
+<script type="module" src="js\compare.js"></script>
 </html>
