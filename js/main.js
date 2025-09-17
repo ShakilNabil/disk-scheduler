@@ -53,8 +53,6 @@ simulationForm.addEventListener("submit", (event) => {
      let headPosMessage = checkHeadPos(headPosition);
      requestMessage.ok === true ? console.log(requestArr) : window.alert(requestMessage.message);
      headPosMessage.ok === true ? console.log(headPosition) : window.alert(headPosMessage.message);
-     console.log(currentAlgorithm);
-     console.log(direction);
 
      const algorithms = {
           "FCFS": calculateFCFS,
@@ -68,3 +66,4 @@ simulationForm.addEventListener("submit", (event) => {
           console.log(algorithms[currentAlgorithm](requestArr, headPosition)) :          console.log(algorithms[currentAlgorithm](requestArr, headPosition, direction));
      
 })
+
