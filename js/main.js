@@ -21,8 +21,11 @@ const simulationForm = document.getElementById("simulation-form");
 
 const directionWrapper = document.getElementById("direction-wrapper");
 
+const parentDiv = document.getElementById("simulate-result-container");
+
 for (const element of algorithmOption) {
      element.addEventListener("click", () => {
+          parentDiv.replaceChildren();
           for (const e of algorithmOption) {
                e.classList.remove("current-algorithm");     
           }
@@ -31,13 +34,15 @@ for (const element of algorithmOption) {
           currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?
           directionWrapper.classList.add("hidden") :   directionWrapper.classList.remove("hidden");
           
+          document.getElementById("request-sequence").value = "";
+          document.getElementById("head-position").value = "";
+          document.getElementById("request-direction").value = "Right";
      
           updateAlgorithmDisplay(element.dataset.algorithm);    
      })   
 }
 updateAlgorithmDisplay("FCFS");
 function updateAlgorithmDisplay(element){
-     let displayNameInfo = "";
      const algoTitle = currentAlgorithmDisplay.querySelector("h3");
      const displayDescriptions = {
           FCFS: ": First-Come-First-Served",
@@ -72,8 +77,22 @@ simulationForm.addEventListener("submit", (event) => {
           "LOOK": calculateLOOK,
           "C-LOOK": calculateCLOOK,
      };
-     currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?    
-          console.log(algorithms[currentAlgorithm](requestArr, headPosition)) :          console.log(algorithms[currentAlgorithm](requestArr, headPosition, direction));
+     const result = currentAlgorithm === "FCFS" || currentAlgorithm === "SSTF" ?    
+          algorithms[currentAlgorithm](requestArr, headPosition) : algorithms[currentAlgorithm](requestArr, headPosition, direction);
+
+     const card = document.createElement("div");
+     card.id = "algo-result";
+     card.innerHTML = `
+          <h3>${currentAlgorithm}</h3>
+          <p>Total Seek Time: ${result.totalSeekTime}</p>
+          <p>Average Seek Time: ${result.avgSeekTime}</p>
+          <ul>
+          ${result.stepBreakdown.map(step =>
+          `<li>Step ${step.step}: Head ${step.from} → ${step.to}, Seek Time=${step.seekTime}, Running Total=${step.runningTotal}</li>`
+          ).join("")}
+          </ul>`
+     
+     parentDiv.appendChild(card);
      
 });
 
