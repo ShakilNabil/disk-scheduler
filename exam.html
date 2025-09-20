@@ -14,11 +14,19 @@
           <a href="exam.html">Take Exam</a>
      </nav>
      <main>
+          <style>
+               .hidden {
+                    display: none !important;
+               }
+               #exam-layout {
+                    display: flex;
+               }
+          </style>
           <h1>Disk Scheduling Exam</h1>
           <p>This online exam is made to provide you with additional practice in fully understanding disk scheduling algorithms</p>
 
           <!-- Exam Setup Section -->
-          <div id="exam-setup" style="display: none;">
+          <div id="exam-setup">
                <h3>Select your preferences below</h3>
                <form id="exam-settings-form">
                     <fieldset id="randomize-section" class="form-section" data-section="randomize">
@@ -28,7 +36,7 @@
                          <label for="question-randomize">Randomize algorithms</label>
                          <br> 
                     </fieldset>
-                    <fieldset id="algorithm-types-section" class="form-section" data-section="algorithm-types">
+                    <fieldset id="algorithm-types-section" class="form-section hidden" data-section="algorithm-types">
                          <legend>Algorithms</legend>
                          <p class="helper">Select at least one algorithm to include in your exam.</p>
                          <input type="checkbox" name="algorithms" id="type-fcfs" value="fcfs" checked>
@@ -49,8 +57,8 @@
                          <input type="checkbox" name="algorithms" id="type-clook" value="clook" checked>
                          <label for="type-clook">C-LOOK (Circular LOOK)</label>
                          <br>
-                         <button type="button" class="toggle-btn" data-action="select">Select All</button>
-                         <button type="button" class="toggle-btn" data-action="clear">Clear All</button>
+                         <button type="button" class="toggle-btn" data-action="select-all">Select All</button>
+                         <button type="button" class="toggle-btn" data-action="clear-all">Clear All</button>
                          <br>
                          <p id="type-warning" class="warning">⚠ Please select at least one algorithm.</p>
                     </fieldset>
@@ -94,8 +102,8 @@
           </div>
           
           <!-- Exam Container -->
-           <form id="test-form" style="display: none;">
-               <div id="exam-layout" style="display: flex;">
+           <form id="test-form">
+               <div id="exam-layout">
                     <aside>
                          <p id="side-display-answered">Answered</p>
                          <p id="side-display-flagged">Flagged</p>
@@ -195,4 +203,5 @@
 
      </main>     
 </body>
+<script type="module" src="js/exam.js"></script>
 </html>

@@ -5,4 +5,9 @@ export function getFormValues(form) {
      const direction = form["request-direction"].value;
      const requestArr = requestSequence.split(/[\s,]+/).filter(x => x !== "").map(x => Number(x));
      return {requestArr, headPosition, direction};
+};
+
+
+export function getPreferencesFormValues(form) {
+          
 }
