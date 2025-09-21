@@ -6,6 +6,7 @@ const questionRandomizedInput = document.getElementById("question-randomize");
 const algorithmTypes = document.getElementById("algorithm-types-section");
 const algorithmOptions = document.getElementsByName("algorithms");
 const toggleBtn = document.querySelectorAll(".toggle-btn");
+const examSettingsForm = document.getElementById("exam-settings-form");
 
 examLayoutContainer.classList.add("hidden");
 resultsContainer.classList.add("hidden");
@@ -32,7 +33,14 @@ toggleBtn.forEach(btn => {
 });
 
 
-
+examSettingsForm.addEventListener("submit", (event) => {
+     event.preventDefault();
+     if(questionRandomizedInput.checked) {
+          for (const algorithmOption of algorithmOptions) {
+                    algorithmOption.checked = true;
+               }     
+     }     
+});
 
 
 
