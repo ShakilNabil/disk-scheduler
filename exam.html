@@ -60,7 +60,7 @@
                          <button type="button" class="toggle-btn" data-action="select-all">Select All</button>
                          <button type="button" class="toggle-btn" data-action="clear-all">Clear All</button>
                          <br>
-                         <p id="type-warning" class="warning">⚠ Please select at least one algorithm.</p>
+                         <p id="type-warning" class="warning hidden" style="color: red;">⚠ Please select at least one algorithm.</p>
                     </fieldset>
                     <fieldset id="number-of-questions-section" class="form-section" data-section="number-of-questions">
                          <legend>Number of Questions</legend>
@@ -81,7 +81,7 @@
                     <fieldset id="time-limit-section" class="form-section" data-section="time-limit">
                          <legend>Time Limit</legend>
                          <p class="helper">Choose how long you'll have.</p>
-                         <input type="radio" name="time-limit" id="limit-none" value="none" checked>
+                         <input type="radio" name="time-limit" id="limit-none" value="null" checked>
                          <label for="limit-none">No time limit</label>
                          <br>
                          <input type="radio" name="time-limit" id="limit-10" value="10">
