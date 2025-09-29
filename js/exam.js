@@ -38,7 +38,7 @@ toggleBtn.forEach(btn => {
 examSettingsForm.addEventListener("submit", (event) => {
      event.preventDefault();
      typeWarning.classList.add("hidden");
-     const examConfig = {algorithm: null, totalQuestionCount: null, timeLimit: null, algorithmProbability: {}};
+     const examConfig = {algorithms: null, totalQuestionCount: null, timeLimit: null, algorithmProbability: {}};
      let algorithmList = []
      if(questionRandomizedInput.checked) {
           for (const algorithmOption of algorithmOptions) {
@@ -56,7 +56,7 @@ examSettingsForm.addEventListener("submit", (event) => {
      }
      const numOfQuestionList = document.getElementsByName("number-of-questions");
      const timeLimitList = document.getElementsByName("time-limit");
-     examConfig.algorithm = algorithmList;
+     examConfig.algorithms = algorithmList;
      examConfig.totalQuestionCount = Number([...numOfQuestionList].find(option => option.checked).value);
      const chosenTimeLimit = [...timeLimitList].find(option => option.checked).value;
      chosenTimeLimit == "null" ? examConfig.timeLimit = null : examConfig.timeLimit = Number(chosenTimeLimit); 
@@ -69,15 +69,43 @@ examSettingsForm.addEventListener("submit", (event) => {
           currentStart += baseProbability;
      }
 
-     createExam(examConfig);
+     createExam(examConfig, algorithmList.length);
 });
 
 
 
 // ================== Exam ==================
 
-function createExam(examConfig) {
-     // create questions inside examConfig with number and algorithm. use loop to create numbers and create the randomize algorithm in order to randomly pick a question.
+function createExam(examConfig, startWeight) {
+     let totalWeight = startWeight; 
+     examConfig.questions = [] 
+     for(let i = 0; i < examConfig.totalQuestionCount; i++) {
+          let chosenAlgorithm = null;
+          let algoFound = false;
+          let currentStart = 0;
+          let randomValue = Math.random();
+          for(const [key, value] of Object.entries(examConfig.algorithmProbability)) {
+               if(algoFound) {
+                    value.range.start = currentStart;
+                    value.range.end = currentStart + value.probability;
+                    currentStart += value.probability;
+               }
+               if(randomValue >= value.range.start && randomValue < value.range.end) {
+                    value.count++;
+                    totalWeight -= value.weight;
+                    value.weight = 1/(value.count + 1);
+                    totalWeight += value.weight;
+                    value.probability = value.weight/totalWeight;
+                    chosenAlgorithm = key;
+                    currentStart = value.range.start;
+                    value.range.end = currentStart + value.probability;
+                    currentStart += value.probability;
+                    algoFound = true;              
+               }
+          }
+          examConfig.questions.push({number: i + 1, algo: chosenAlgorithm});
+     }
+     console.log(examConfig.questions);
      renderExam(examConfig);     
 }
 
