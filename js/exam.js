@@ -81,27 +81,24 @@ function createExam(examConfig, startWeight) {
      examConfig.questions = [] 
      for(let i = 0; i < examConfig.totalQuestionCount; i++) {
           let chosenAlgorithm = null;
-          let algoFound = false;
-          let currentStart = 0;
+          let rangeStart = 0;
           let randomValue = Math.random();
           for(const [key, value] of Object.entries(examConfig.algorithmProbability)) {
-               if(algoFound) {
-                    value.range.start = currentStart;
-                    value.range.end = currentStart + value.probability;
-                    currentStart += value.probability;
-               }
                if(randomValue >= value.range.start && randomValue < value.range.end) {
                     value.count++;
                     totalWeight -= value.weight;
                     value.weight = 1/(value.count + 1);
                     totalWeight += value.weight;
-                    value.probability = value.weight/totalWeight;
-                    chosenAlgorithm = key;
-                    currentStart = value.range.start;
-                    value.range.end = currentStart + value.probability;
-                    currentStart += value.probability;
-                    algoFound = true;              
+                    chosenAlgorithm = key; 
+                    break;            
                }
+          }
+          
+          for(const [key, value] of Object.entries(examConfig.algorithmProbability)) {
+               value.probability = value.weight / totalWeight;
+               value.range.start = rangeStart;
+               value.range.end = rangeStart + value.probability;
+               rangeStart = value.range.end;           
           }
           examConfig.questions.push({number: i + 1, algo: chosenAlgorithm});
      }
@@ -112,5 +109,25 @@ function createExam(examConfig, startWeight) {
 function renderExam(examConfig) {
      examSetupContainer.classList.add("hidden");
      examLayoutContainer.classList.remove("hidden");
+     const questionDiv = document.createElement("div");
+     const questionTitle = document.getElementById("question-title");
+     questionDiv.id = "side-display-questions-section"
+     let btnsHTML = "";
+     for (let i = 1; i <= examConfig.totalQuestionCount; i++) {
+          i === 1 ? btnsHTML += `<button type="button" class="question-btn current" data-question="${i}">${i}</button>` : btnsHTML += `<button type="button" class="question-btn" data-question="${i}">${i}</button>`;      
+     }
+     questionDiv.innerHTML = btnsHTML;
+     questionTitle.insertAdjacentElement("afterend", questionDiv);
+     const questionBtn = document.querySelectorAll(".question-btn");
+     for(const btn of questionBtn) {
+          btn.addEventListener("click", () => {
+               for(const button of questionBtn) {
+                    button.classList.remove("current");
+               }
+               btn.classList.add("current");
+               
+          })
+     }
+
 }
 
